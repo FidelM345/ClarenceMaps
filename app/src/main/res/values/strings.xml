@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">NearbyHospitals</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_bottom">Bottom</string>
+    <string name="title_home">Nearby Hospitals</string>
+    <string name="title_dashboard">Nearby Pharmacies</string>
+    <string name="title_notifications">Notifications</string>
+</resources>
