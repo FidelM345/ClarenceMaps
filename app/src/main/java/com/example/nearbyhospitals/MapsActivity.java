@@ -55,6 +55,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -101,14 +102,14 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
                     String googleUrl=getUrl(lat,lon,"Hospital");//method gets the required google api url
-                    setPointsonMap(googleUrl) ;//method retrieves nearest points and sets them on google map
+                    setPointsonMap(googleUrl,"Hospital") ;//method retrieves nearest points and sets them on google map
 
 
                     return true;
                 case R.id.navigation_dashboard:
 
                     String googleUrl1=getUrl(lat,lon,"Pharmacy");//method gets the required google api url
-                    setPointsonMap(googleUrl1) ;//method retrieves nearest points and sets them on google map
+                    setPointsonMap(googleUrl1,"Pharmacy") ;//method retrieves nearest points and sets them on google map
 
 
                     return true;
@@ -232,8 +233,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
 
-    private void setPointsonMap(String url) {
+    private void setPointsonMap(String url, final String placeType) {
 
+        mMap.clear();
         AndroidNetworking.get(url)
                 .setPriority(Priority.HIGH)
                 .build()
@@ -256,6 +258,15 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             final double point_lat=Double.parseDouble(googlePlace.getGeometry().getLocation().getLat());
                             final double point_lon=Double.parseDouble(googlePlace.getGeometry().getLocation().getLng());
 
+                            if(placeType.equals("Hospital")) {
+                                //  markerOptions.icon(BitmapDescriptorFactory.fromResource(R.mipmap.hospitaly));
+                                markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+
+                            }else  if(placeType.equals("Pharmacy")) {
+                                markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+
+
+                            }
 
 
 
@@ -498,7 +509,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
                             String googleUrl=getUrl(lat,lon,"Hospital");//method gets the required google api url
-                            setPointsonMap(googleUrl) ;//method retrieves nearest points and sets them on google map
+                            setPointsonMap(googleUrl,"Hospital") ;//method retrieves nearest points and sets them on google map
 
                             getLocationOnce=false;
 
